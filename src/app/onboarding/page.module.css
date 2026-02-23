@@ -1,0 +1,263 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background: var(--bg-secondary);
+}
+
+.card {
+    width: 100%;
+    max-width: 640px;
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: 40px;
+    animation: fadeInUp 0.6s var(--ease-out) both;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.logo {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand-primary-dark);
+}
+
+.progress {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+}
+
+.progressDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    transition: all 0.3s var(--ease-out);
+}
+
+.progressDotActive {
+    background: var(--brand-primary);
+}
+
+.progressDotCurrent {
+    box-shadow: 0 0 0 3px rgba(45, 95, 45, 0.2);
+    transform: scale(1.2);
+}
+
+.stepLabel {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+}
+
+/* Step Content */
+.stepContent {
+    animation: fadeInUp 0.4s var(--ease-out) both;
+}
+
+.stepTitle {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.stepSub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+}
+
+/* Field Group */
+.fieldGroup {
+    margin-bottom: 24px;
+}
+
+.fieldLabel {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+/* Chips */
+.chipGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.chip:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+}
+
+.chipActive {
+    background: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: #fff;
+}
+
+/* Subject Grid */
+.subjectGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.subjectCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 16px;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    transition: all 0.25s var(--ease-out);
+    position: relative;
+}
+
+.subjectCard:hover {
+    border-color: var(--brand-primary);
+    background: var(--teacher-bg);
+}
+
+.subjectCardActive {
+    border-color: var(--brand-primary);
+    background: var(--teacher-bg);
+    box-shadow: 0 0 0 3px rgba(45, 95, 45, 0.1);
+}
+
+.subjectIcon {
+    font-size: 32px;
+}
+
+.subjectName {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.subjectCheck {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: #fff;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+/* Teacher Grid */
+.teacherGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.teacherCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 28px 16px;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--radius-xl);
+    transition: all 0.25s var(--ease-out);
+    text-align: center;
+}
+
+.teacherCard:hover {
+    border-color: var(--brand-accent);
+    transform: translateY(-2px);
+}
+
+.teacherCardActive {
+    border-color: var(--brand-accent);
+    background: rgba(212, 168, 67, 0.06);
+    box-shadow: 0 4px 16px rgba(212, 168, 67, 0.15);
+}
+
+.teacherEmoji {
+    font-size: 48px;
+}
+
+.teacherName {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.teacherStyle {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.teacherSelected {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brand-accent-dark);
+    background: rgba(212, 168, 67, 0.15);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    margin-top: 4px;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.actions button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+    .card {
+        padding: 24px;
+    }
+
+    .subjectGrid,
+    .teacherGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,765 @@
+/* ===== DASHBOARD LAYOUT ===== */
+.dashboard {
+    display: flex;
+    height: 100vh;
+    background: var(--bg-primary);
+    overflow: hidden;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 280px;
+    background: var(--bg-card);
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s var(--ease-out);
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.sidebarHeader {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sidebarLogo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brand-primary-dark);
+    text-decoration: none;
+}
+
+.sidebarSection {
+    padding: 16px 20px;
+}
+
+.sidebarLabel {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-tertiary);
+    margin-bottom: 12px;
+}
+
+.newSessionBtn {
+    width: 100%;
+    padding: 10px 16px;
+    background: var(--brand-primary);
+    color: #fff;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.newSessionBtn:hover {
+    background: var(--brand-primary-light);
+}
+
+.sessionList {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sessionItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.sessionItem:hover {
+    background: var(--bg-secondary);
+}
+
+.sessionItemActive {
+    background: var(--bg-secondary);
+}
+
+.sessionDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    opacity: 0.4;
+    flex-shrink: 0;
+}
+
+.sessionItemActive .sessionDot {
+    opacity: 1;
+    animation: pulse 2s ease infinite;
+}
+
+.sessionTitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.sessionMeta {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+/* Weak Topics */
+.weakTopics {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.weakTopic span {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.weakBar {
+    height: 4px;
+    background: var(--bg-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.weakBarFill {
+    height: 100%;
+    background: var(--brand-accent);
+    border-radius: 2px;
+    transition: width 0.5s var(--ease-out);
+}
+
+/* Sidebar Links */
+.sidebarLink {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--brand-primary);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.sidebarLink:hover {
+    opacity: 0.7;
+}
+
+.quickLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.quickLink {
+    display: block;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+}
+
+.quickLink:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* User Card */
+.sidebarFooter {
+    margin-top: auto;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.userCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.userAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.userName {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.userPlan {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+/* ===== MAIN CHAT ===== */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Top Bar */
+.topBar {
+    padding: 12px 20px;
+    background: var(--bg-card);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+.sidebarToggle {
+    background: none;
+    font-size: 20px;
+    color: var(--text-secondary);
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.sidebarToggle:hover {
+    color: var(--text-primary);
+}
+
+.topBarCenter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.topBarSubject {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.topBarDot {
+    color: var(--text-tertiary);
+}
+
+.topBarTopic {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.topBarRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.teacherModeBadge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(212, 168, 67, 0.12);
+    border: 1px solid rgba(212, 168, 67, 0.3);
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand-accent-dark);
+}
+
+.teacherModePulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-accent);
+    animation: pulse 1.5s ease infinite;
+}
+
+.sessionTimer {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ===== AVATAR BANNER ===== */
+.avatarBanner {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--teacher-bg), rgba(212, 168, 67, 0.06));
+    border-bottom: 1px solid var(--teacher-border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeIn 0.4s ease;
+    flex-shrink: 0;
+}
+
+.avatarFace {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatarCircle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(45, 95, 45, 0.3);
+}
+
+.avatarEmoji {
+    font-size: 24px;
+}
+
+.avatarWave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 32px;
+}
+
+.avatarWaveBar {
+    width: 3px;
+    background: var(--brand-primary);
+    border-radius: 2px;
+    transition: height 0.3s ease;
+    animation: float 1s ease infinite;
+}
+
+.avatarInfo {
+    flex: 1;
+}
+
+.avatarName {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brand-primary-dark);
+}
+
+.avatarStep {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.avatarSteps {
+    display: flex;
+    gap: 6px;
+}
+
+.avatarStepDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    transition: all 0.3s;
+}
+
+.avatarStepDotActive {
+    background: var(--brand-primary);
+    box-shadow: 0 0 6px rgba(45, 95, 45, 0.4);
+}
+
+.avatarEndBtn {
+    padding: 6px 14px;
+    background: rgba(196, 77, 77, 0.1);
+    color: var(--error);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.avatarEndBtn:hover {
+    background: rgba(196, 77, 77, 0.2);
+}
+
+/* ===== CHAT AREA ===== */
+.chatArea {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Messages */
+.message {
+    max-width: 720px;
+    padding: 14px 18px;
+    border-radius: var(--radius-lg);
+    animation: fadeInUp 0.3s var(--ease-out) both;
+    position: relative;
+}
+
+.messageStudent {
+    align-self: flex-end;
+    background: var(--student-bg);
+    border: 1px solid var(--student-border);
+    border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg);
+    margin-left: 60px;
+}
+
+.messageTeacher {
+    align-self: flex-start;
+    background: var(--teacher-bg);
+    border: 1px solid var(--teacher-border);
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
+    margin-right: 60px;
+}
+
+.messageTeacherMode {
+    align-self: flex-start;
+    background: linear-gradient(135deg, var(--teacher-bg), rgba(212, 168, 67, 0.06));
+    border: 1px solid var(--brand-accent);
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
+    margin-right: 40px;
+    box-shadow: 0 2px 12px rgba(212, 168, 67, 0.1);
+}
+
+.messageSystem {
+    align-self: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    max-width: 500px;
+}
+
+.messageLabel {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--brand-primary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.messageStepBadge {
+    padding: 2px 8px;
+    background: rgba(212, 168, 67, 0.15);
+    color: var(--brand-accent-dark);
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    text-transform: capitalize;
+}
+
+.messageContent {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+.messageContent p {
+    margin-bottom: 4px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 16px;
+    background: var(--brand-primary);
+    animation: pulse 0.8s ease infinite;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+}
+
+.messageTime {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-top: 6px;
+    text-align: right;
+}
+
+/* Typing Indicator */
+.typingIndicator {
+    display: flex;
+    gap: 5px;
+    padding: 4px 0;
+}
+
+.typingIndicator span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    opacity: 0.4;
+    animation: typing 1.4s ease infinite;
+}
+
+.typingIndicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typingIndicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* ===== INPUT AREA ===== */
+.inputArea {
+    padding: 16px 24px 20px;
+    background: var(--bg-card);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+}
+
+.inputWrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inputWrapper:focus-within {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(45, 95, 45, 0.08);
+}
+
+.inputField {
+    flex: 1;
+    background: transparent;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    resize: none;
+    overflow-y: auto;
+}
+
+.inputField::placeholder {
+    color: var(--text-tertiary);
+}
+
+.inputActions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.inputActionBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.inputActionBtn:hover {
+    background: var(--bg-tertiary);
+}
+
+.sendBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    color: var(--text-tertiary);
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.sendBtnActive {
+    background: var(--brand-primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(45, 95, 45, 0.3);
+}
+
+.sendBtnActive:hover {
+    background: var(--brand-primary-light);
+}
+
+.inputHints {
+    padding: 8px 4px 0;
+    display: flex;
+    gap: 8px;
+}
+
+.inputHints span {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+    }
+
+    .sidebarOpen {
+        transform: translateX(0);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .message {
+        max-width: 90%;
+    }
+
+    .messageStudent {
+        margin-left: 20px;
+    }
+
+    .messageTeacher,
+    .messageTeacherMode {
+        margin-right: 20px;
+    }
+
+    .avatarBanner {
+        flex-wrap: wrap;
+    }
+
+    .avatarSteps {
+        display: none;
+    }
+
+    .avatarPanel {
+        max-height: 280px;
+    }
+
+    .stepProgressBar {
+        overflow-x: auto;
+        padding: 8px 12px;
+    }
+
+    .stepName {
+        display: none;
+    }
+}
+
+/* ===== AVATAR PANEL (Phase 2) ===== */
+.avatarPanel {
+    flex-shrink: 0;
+    max-height: 380px;
+    overflow: hidden;
+    border-bottom: 2px solid var(--brand-accent);
+    animation: slideDown 0.5s var(--ease-out);
+}
+
+@keyframes slideDown {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+
+    to {
+        max-height: 380px;
+        opacity: 1;
+    }
+}
+
+/* ===== STEP PROGRESS BAR ===== */
+.stepProgressBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, rgba(45, 95, 45, 0.04), rgba(212, 168, 67, 0.04));
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+}
+
+.stepItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.stepItem:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: var(--bg-tertiary);
+    transition: background 0.3s;
+}
+
+.stepItem:not(:last-child):has(.stepDotActive)::after {
+    background: var(--brand-primary);
+}
+
+.stepDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--bg-tertiary);
+    transition: all 0.3s var(--ease-out);
+    flex-shrink: 0;
+}
+
+.stepDotActive {
+    background: var(--brand-primary);
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 8px rgba(45, 95, 45, 0.3);
+}
+
+.stepDotCurrent {
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 12px rgba(212, 168, 67, 0.4);
+    animation: pulse 1.5s ease infinite;
+    transform: scale(1.2);
+}
+
+.stepName {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+
+.stepNameActive {
+    color: var(--brand-primary-dark);
+    font-weight: 700;
+}
+
+/* ===== COMPACT CHAT (when avatar active) ===== */
+.chatAreaCompact {
+    max-height: 240px;
+    min-height: 180px;
+}

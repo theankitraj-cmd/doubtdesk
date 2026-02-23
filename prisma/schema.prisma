@@ -1,0 +1,195 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── User ────────────────────────────────────────────────────
+
+model User {
+  id            String   @id @default(uuid())
+  email         String?  @unique
+  phone         String?  @unique
+  name          String?
+  avatarUrl     String?
+  authProvider  String   @default("phone") // "phone", "google"
+  createdAt     DateTime @default(now())
+  lastActiveAt  DateTime @default(now())
+
+  profile       StudentProfile?
+  sessions      Session[]
+  subscriptions Subscription[]
+  usageRecords  UsageRecord[]
+  weakTopics    WeakTopic[]
+
+  // NextAuth fields
+  accounts      Account[]
+}
+
+// ─── NextAuth Account (for OAuth providers) ──────────────────
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+// ─── Student Profile ─────────────────────────────────────────
+
+model StudentProfile {
+  id                     String   @id @default(uuid())
+  userId                 String   @unique
+  grade                  String   // "Class 6".."Class 12", "Dropper"
+  examTarget             String?  // "CBSE Board", "JEE Main", "NEET", etc.
+  subjects               String   @default("[]") // JSON string[]
+  diagnosticResults      String?  // JSON assessment results
+  difficultyLevel        String   @default("medium") // "easy", "medium", "hard"
+  preferredTeacherAvatar String   @default("sharma") // "sharma", "priya", "david"
+  preferredLanguage      String   @default("en-hi") // "en", "en-hi", "hi"
+  totalSessions          Int      @default(0)
+  totalDoubtsCleared     Int      @default(0)
+  updatedAt              DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ─── Session ─────────────────────────────────────────────────
+
+model Session {
+  id              String    @id @default(uuid())
+  userId          String
+  type            String    @default("DOUBT") // DOUBT, PRACTICE, REVISION, TEACHER_CLASS
+  mode            String    @default("TEXT_CHAT") // TEXT_CHAT, TEACHER_MODE_AVATAR, VOICE_ONLY
+  subject         String?
+  topic           String?
+  summaryAi       String?
+  durationSeconds Int       @default(0)
+  messageCount    Int       @default(0)
+  avatarUsed      Boolean   @default(false)
+  status          String    @default("ACTIVE") // ACTIVE, COMPLETED, ABANDONED
+  contextSnapshot String?   // JSON
+  startedAt       DateTime  @default(now())
+  endedAt         DateTime?
+
+  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages Message[]
+  avatarSegments AvatarSegment[]
+}
+
+// ─── Message ─────────────────────────────────────────────────
+
+model Message {
+  id          String   @id @default(uuid())
+  sessionId   String
+  role        String   // STUDENT, TEACHER, SYSTEM
+  content     String
+  metadata    String?  // JSON: teacher step info, evaluation results, etc.
+  contentType String   @default("TEXT") // TEXT, LATEX, IMAGE, CODE
+  tokenCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+// ─── Avatar Segment ──────────────────────────────────────────
+
+model AvatarSegment {
+  id            String   @id @default(uuid())
+  sessionId     String
+  speaker       String   // STUDENT, TEACHER
+  transcript    String?
+  videoUrl      String?
+  audioUrl      String?
+  durationMs    Int      @default(0)
+  teacherStep   String?  // GREETING, DIAGNOSING, EXPLAINING, etc.
+  sttConfidence Float?
+  createdAt     DateTime @default(now())
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+// ─── Weak Topic ──────────────────────────────────────────────
+
+model WeakTopic {
+  id             String   @id @default(uuid())
+  userId         String
+  subject        String
+  topic          String
+  weaknessScore  Float    @default(0.5) // 0 (strong) to 1 (very weak)
+  timesStruggled Int      @default(1)
+  timesPracticed Int      @default(0)
+  lastSeen       DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subject, topic])
+}
+
+// ─── Subscription ────────────────────────────────────────────
+
+model Subscription {
+  id                     String    @id @default(uuid())
+  userId                 String
+  plan                   String    @default("FREE") // FREE, MONTHLY, YEARLY
+  status                 String    @default("ACTIVE") // ACTIVE, CANCELLED, PAST_DUE, EXPIRED
+  razorpaySubscriptionId String?   @unique
+  currentPeriodStart     DateTime?
+  currentPeriodEnd       DateTime?
+  cancelledAt            DateTime?
+  createdAt              DateTime  @default(now())
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments Payment[]
+}
+
+// ─── Payment ─────────────────────────────────────────────────
+
+model Payment {
+  id                String   @id @default(uuid())
+  subscriptionId    String
+  userId            String
+  amountPaise       Int
+  currency          String   @default("INR")
+  status            String   @default("PENDING") // PENDING, SUCCESS, FAILED, REFUNDED
+  razorpayPaymentId String?  @unique
+  razorpayOrderId   String?
+  razorpayResponse  String?  // JSON
+  createdAt         DateTime @default(now())
+
+  subscription Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+}
+
+// ─── Usage Record ────────────────────────────────────────────
+
+model UsageRecord {
+  id                       String   @id @default(uuid())
+  userId                   String
+  usageDate                DateTime
+  textMessagesUsed         Int      @default(0)
+  avatarMinutesUsed        Int      @default(0)
+  teacherModeActivations   Int      @default(0)
+  updatedAt                DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, usageDate])
+}
