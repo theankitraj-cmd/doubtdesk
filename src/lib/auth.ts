@@ -3,9 +3,10 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./db";
 import { authConfig } from "./auth.config";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-    ...authConfig,
-    adapter: PrismaAdapter(prisma),
+import type { Adapter } from "next-auth/adapters";
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+    adapter: PrismaAdapter(prisma) as Adapter,
     providers: [
         // Override Credentials Provider locally if we want actual DB lookup for Dev login
         // because auth.config.ts can't access Prisma in Edge middleware

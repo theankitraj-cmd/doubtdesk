@@ -3,6 +3,7 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 
 export const authConfig = {
+    trustHost: true,
     session: { strategy: "jwt" },
     providers: [
         Google({
@@ -24,7 +25,7 @@ export const authConfig = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user, trigger, session }) {
+        async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
             }

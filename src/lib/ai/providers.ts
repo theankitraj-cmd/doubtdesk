@@ -25,9 +25,9 @@ export const SimliProvider = {
     },
 
     /** Send audio to generate lip-synced video frames */
-    async sendAudio(_sessionId: string, _audioChunk: ArrayBuffer): Promise<{ videoUrl: string }> {
+    async sendAudio(sessionId: string, audioChunk: ArrayBuffer): Promise<{ videoUrl: string }> {
         // Mock: Simli processes audio → returns video frames
-        return { videoUrl: `mockVideo://${_sessionId}/frame` };
+        return { videoUrl: `mockVideo://${sessionId}/frame` };
     },
 
     /** Set the avatar's expression */
@@ -124,10 +124,10 @@ export const DeepgramProvider = {
     },
 
     /** Process an audio chunk and get transcript */
-    async processAudio(_sessionId: string, _audioChunk: ArrayBuffer): Promise<STTResult> {
+    async processAudio(sessionId: string, audioChunk: ArrayBuffer): Promise<STTResult> {
         // Mock: Returns simulated transcription
         return {
-            transcript: "",
+            transcript: `Processed ${audioChunk.byteLength} for ${sessionId}`,
             confidence: 0.95,
             isFinal: false,
             words: [],
