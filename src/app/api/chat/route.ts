@@ -95,7 +95,10 @@ async function callGemini(
 
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({
+            model: "gemini-1.5-flash",
+            systemInstruction,
+        });
 
         // Map history to Gemini format (user/model roles)
         const geminiHistory = history
@@ -107,7 +110,6 @@ async function callGemini(
 
         const chat = model.startChat({
             history: geminiHistory,
-            systemInstruction,
         });
 
         const result = await chat.sendMessage(message);
